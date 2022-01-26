@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-for="(user,i) in list">{{ user.id}} ----- {{user.name}} ----- 索引是 {{i}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                list: [{
+                    id: 1,
+                    name: '1'
+                }, {
+                    id: 1,
+                    name: '2'
+                }, {
+                    id: 1,
+                    name: '3'
+                }, {
+                    id: 1,
+                    name: '4'
+                }]
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

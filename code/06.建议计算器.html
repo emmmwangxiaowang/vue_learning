@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+
+
+    <style>
+        input {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="n1">
+
+        <select name="" id="" v-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            
+        </select>
+
+        <input type="text" v-model="n2">
+
+        <input type="button" value="=" @click="calc">
+
+        <input type="text" v-model="result">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                n1: 0,
+                n2: 0,
+                result: 0,
+                opt: '+ '
+            },
+            methods: {
+                calc() {
+                    // switch (this.opt) {
+                    //     case '+':
+                    //         this.result = parseInt(this.n1) + parseInt(this.n2);
+                    //         break;
+                    //     case '-':
+                    //         this.result = parseInt(this.n1) - parseInt(this.n2);
+                    //         break;
+                    //     case '*':
+                    //         this.result = parseInt(this.n1) * parseInt(this.n2);
+                    //         break;
+                    //     case '/':
+                    //         this.result = parseInt(this.n1) / parseInt(this.n2);
+                    //         break;
+                    // }
+
+
+                    // eval 将字符串运算出来并返回结果,存在类似sql注入的问题
+                    let codeStr = 'parseInt(this.n1)' + this.opt + 'parseInt(this.n2)';
+                    this.result = eval(codeStr)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

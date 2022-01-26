@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 1. 导入Vue包 -->
+    <script src="./lib/node_modules/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 2. 创建一个要控制的区域 -->
+    <div id="app">
+        <input type="button" value="浪起来" @click="lang">
+        <input type="button" value="低调" @click="stop">
+        <h4>{{msg}}</h4>
+    </div>
+
+    <script>
+        let vm = new Vue({
+
+            // 注意: 在 vm 实例中,如果想要获取data上的数据,或者想要调用methods中的方法,必须通过this.数据属性名 或 this.方法名来惊醒访问,这里的 this,就表示我们 new 出来的 vm 实例对象
+            el: '#app',
+            data: {
+                msg: '猥琐发育,别浪~~!',
+                intervalId: null //在data上定义定时器Id
+            },
+
+
+
+            //分析:
+            // 1. 给[浪起来] 按钮 绑定事件
+            // 2. 在按钮得到事件处理函数中,写相关的业务逻辑代码: 拿到msg字符串 , 然后调用字符串的substring来进行字符串的截取操作,把第一个截取出来，放到最后一个位置
+            // 3. 为了实现点击按钮,自动截取的功能,需要把 步骤 2 中的代码放到一个定时器中去       
+            methods: {
+
+                lang() {
+
+                    if (this.intervalId != null) return
+                    this.intervalId = setInterval(() => {
+                        let start = this.msg.substring(0, 1)
+                            // 获取到头的第一个字符
+                        let end = this.msg.substring(1)
+                            // 获取到 后面的所有字符
+                        console.log(end)
+                            // 重新拼接得到的新字符串,并赋值给this.msg
+                        this.msg = end + start
+
+                        // 注意: vm 实例会监听自己身上data中所有数据的改变,之哟啊书易发生变化,就会自动把新的数据,从data上同步页面中去 程序员只需要关心数据,不需要考虑如何重更新渲染DOM页面 --双向绑定
+                    }, 400);
+
+                },
+
+
+                //停止定时器
+                stop() {
+                    clearInterval(this.intervalId)
+                    this.intervalId = null
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

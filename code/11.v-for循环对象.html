@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 注意 : 在便利对象身上的键值对的时候, 除了 有 value  key 之外 , 在第三个位置 还有一个索引 -->
+        <p v-for="(value,key,i) in user ">{{value}} --- {{key}} --- {{ i}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                user: {
+                    id: 1,
+                    name: '王小王',
+                    gender: "男"
+                }
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 过滤器按顺序调用 -->
+        <p>{{ msg | msgFormat('蒋莹莹','陈昌霖') | test}}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 定义一个Vue全局的过滤器,名字叫做 msgFormat
+        Vue.filter('msgFormat', function(msg, arg, arg2) {
+            // 字符串的 replace 方法,第一个参数,除了可写一个子u穿之外,还可以定义一个正则
+            //  /word/ 匹配字符串   +g  全局匹配
+            return msg.replace(/emmm/g, arg + ' ' + arg2)
+        })
+
+        Vue.filter('test', function(msg) {
+            return msg + '====='
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                msg: 'emmm 王小王丫 emmm'
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
