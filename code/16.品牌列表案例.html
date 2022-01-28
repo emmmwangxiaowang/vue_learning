@@ -35,7 +35,8 @@
                 <label for="">
                     搜索名称关键字:
                     <!-- 注意: vue 中所有的指令,在调用的时候,都以 v- 开头 -->
-                    <input type="text" class="form-control" v-model="keywords" id="search" v-focus>
+                    <!--                                                                                    这里为啥要加' '? 因为不加' ' 的话 blue会被当成变量,从data中去找 -->
+                    <input type="text" class="form-control" v-model="keywords" id="search" v-focus v-color="'pink'">
                 </label>
             </div>
         </div>
@@ -67,7 +68,7 @@
     </div>
 
     <div id="app2">
-        <h3>{{date |dateFormat}}</h3>
+        <h3 v-color="'blue'" v-fontweight="100">{{date |dateFormat}}</h3>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -101,6 +102,42 @@
 
         // 自定义全局按键修饰符
         Vue.config.keyCodes.f2 = 113
+
+        // 使用Vue.directive() 定义全局的指令
+        // 其中: 参数1 : 指令的名称,注意,在定义的时候, 指令的名称前面,不需要加 v- 前缀, 
+        // 在 调用的时候,必须在指令名称前加上 v- 前缀进行强调
+        // 参数2 : 是一个对象, 这个对象身上,有一些指令相关的函数, 这些函数可以在特定的阶段,执行相关的操作.
+        Vue.directive('focus', {
+            bind: function(el) { //每当指令绑定到元素上的时候, 会立即执行这个bind含糊, 值执行一次
+                // 注意: 在每个函数中, 第一个参数, 永远是el , 表示被绑定了指令的那个元素, 这个el 参数, 是一个原生的 JS对象
+                // 在元素 刚绑定了指令的时候, 还没有 插入到 Dom中去, 这时候, 调用focus方法没有作用.
+                // 因为, 一个元素, 只有插入DOM之后,才能获取焦点
+                // el.focus()
+            },
+            inserted: function(el) {
+                // inserted 表示元素插入到DOM中的时候,会执行inserted函数
+                // 和JS行为有关的操作, 最好在 inserted 中去执行, 防止 JS行为不生效
+                el.focus()
+            },
+            updated: function(el) {
+                // 当Vnode更新的时候, 会执行updated, 可能会触发多次
+            }
+        })
+
+        // 自定义一个设置字体颜色的指令
+        Vue.directive('color', {
+            // 样式,只要通过指令绑定给了元素,不管这个元素有没有插入到页面中去,这个全速肯定有了一个内敛的  压根是
+            // 将来元素肯定会显示到页面中, 这时候,浏览器的渲染引擎必然会解析样式, 应用给这个元素
+            bind: function(el, binding) {
+                el.style.color = 'red'
+                    // 和样式相关的操一般都可以在bind执行作
+
+                console.log(binding.name) // clor
+                console.log(binding.value) // blue 
+                console.log(binding.expression) // 'blue'
+                el.style.color = binding.value
+            }
+        })
 
         var app = new Vue({
             el: "#app",
@@ -186,11 +223,7 @@
             }
         });
 
-        // 使用Vue.directive() 定义全局的指令
-        // 其中: 参数1 : 指令的名臣,注意,在定义的时候, 指令的名称前面,不需要加 v- 前缀, 
-        // 在 调用的时候,必须在指令名称前加上 v- 前缀进行强调
-        // 参数2 : 是一个对象, 这个对象身上,有一些指令相关的函数, 这些函数可以在特定的阶段,执行相关的操作.
-        Vue.directive('focus', {})
+
 
         // 自己定义一个私有的过滤器
         var vm2 = new Vue({
@@ -226,6 +259,14 @@
                     }
                 }
 
+            },
+            directives: {
+                // 自定义私有指令
+                'fontweight': {
+                    bind: function(el, binding) {
+                        el.style.fontWeight = binding.value
+                    }
+                }
             }
         })
 
