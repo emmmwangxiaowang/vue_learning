@@ -68,7 +68,7 @@
     </div>
 
     <div id="app2">
-        <h3 v-color="'blue'" v-fontweight="100">{{date |dateFormat}}</h3>
+        <h3 v-color="'blue'" v-fontweight="900" v-fontsize="'30px'">{{date |dateFormat}}</h3>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -266,6 +266,10 @@
                     bind: function(el, binding) {
                         el.style.fontWeight = binding.value
                     }
+                },
+                'fontsize': function(el, binding) {
+                    // 注意:这个 function 等同于把代码写到了 bind 和update 中去
+                    el.style.fontSize = parseInt(binding.value) + 'px'
                 }
             }
         })
