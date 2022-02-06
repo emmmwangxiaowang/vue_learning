@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+    <style>
+        .ball {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: red;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="加入购物车" @click="flag=!flag">
+        <!-- 1. 使用 transition 元素把小球包裹起来 -->
+        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+            <div class="ball" v-show="flag"></div>
+        </transition>
+    </div>
+    <script>
+        // Vue.directive('focus', function(el) {})
+        var app = new Vue({
+            el: "#app",
+            data: {
+                flag: false
+            },
+            methods: {
+                // 注意: 动画狗子函数的第一个参数: el 表示要执行dog暖的那个DOM元素 , 是个原生的JS DOM对象
+                // 可以认为,el 是通过 document.getElementById('') 方式获取到的原生JS DOM对象
+                // 
+                beforeEnter(el) {
+                    // 表示动画入场之前, 此时动画尚未开始, 可以再beforeEnter中
+                    // 设置元素开始之前的起始样式
+                    // 设置小球开始动画之前的起始位置 
+                    el.style.transform = "translate(0,0)"
+                    console.log('beforeEnter')
+                },
+                enter(el, done) {
+                    // 这句话没有实际的作用, 但是 如果不屑, 出不来动画效果
+                    el.offsetWidth;
+                    // enter表示动画开始之后的样式, 可以设置小球完成动画之后的结束状态
+                    el.style.transform = "translate(150px,450px)"
+                    el.style.transition = 'all 5s ease'
+                    console.log('enter')
+
+                    // 这里的done, 起始求实 afterEnter 这个函数, 也就是说: done 是afterEnter 函数的引用
+                    done()
+                },
+                afterEnter(el) {
+                    console.log('ok')
+
+                    this.flag = !this.flag
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+
+    <title>vueApp</title>
+
+    <!-- 2. 自定义两组样式, 来控制 transition 内部的元素实现动画 -->
+    <style>
+        /* v-enter [这是一个时间点]  是进入之前, 元素的其实状态, 此时还没有进入 */
+        /* v-leave-to  是动画离开之后, 离开的终止状态, 此时, 元素动画已经结束 */
+        /* 因为这个动画效果需要操作DOM,所以这个标签应该再样式加载完之后 --body之后 为啥再css之后也行暂不知*/
+        
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+        /* v-enter-active [入场动画的事件段]  */
+        /* v-leave-active [立场动画的时间段] */
+        
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all 0.5s ease
+        }
+    </style>
+    <!-- <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script> -->
+
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="toggle" @click='flag=!flag'>
+        <!-- 需求: 点击按钮, 让h3 显示, 再点击, 让 h3 隐藏 -->
+        <!-- 1. 使用 transition 元素, 把需要被动画控制的元素包裹起来 -->
+
+        <transition name="fade">
+            <h3 v-if="flag">这是一个h3</h3>
+        </transition>
+
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                flag: false
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.css" rel="stylesheet">
+    <!-- 入场 bounceIn     离场bounceOut -->
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="toggle" @click="flag=!flag">
+
+        <!-- 使用animate类实现 淡进淡出效果  -->
+        <!-- <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <h3 v-if="flag">这是一个h3</h3>
+        </transition> -->
+
+        <!-- 使用 :duration="毫秒数" 来统一设置  入场 和 离场 时候的动画市场 -->
+        <!-- <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="500">
+            <h3 v-if="flag" class="animated">这是一个h3</h3>
+        </transition> -->
+
+        <!-- 使用 :duration="{enter:200,leave:400" 来分别设置  入场的市场  和离场的时长-->
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{enter:200,leave:400}">
+            <h3 v-if="flag" class="animated">这是一个h3</h3>
+        </transition>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                flag: true
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
