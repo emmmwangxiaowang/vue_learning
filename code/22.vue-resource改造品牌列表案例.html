@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../bootstrap.min.css">
     <!-- <link rel="stylesheet" href="../code/lib/node_modules/axios/axios.min.js"> -->
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.9.1/axios.min.js"></script>
 
 
     <title>vueApp</title>
@@ -51,7 +50,7 @@
                     <td>{{item.name}}</td>
                     <td>{{item.ctime}}</td>
                     <td>
-                        <a href=" ">删除</a>
+                        <a href=" " @click.prevent="del(item.id)">删除</a>
                     </td>
 
                 </tr>
@@ -61,8 +60,11 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js "></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3 "></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.9.1/axios.min.js"></script>
 
     <script>
+        // 配置基本路径
+        axios.defaults.baseUrl = 'http://127.0.0.1:8000/'
         var app = new Vue({
             el: "#app ",
             data: {
@@ -105,7 +107,7 @@
                 // },
                 add() {
                     let products = JSON.stringify(this.list);
-                    axios.post('http://127.0.0.1:8000/axios-vue', {
+                    axios.post('axios-vue', {
                         name: this.name,
                         list: products
                     }).then(result => {
@@ -127,7 +129,7 @@
                     // 5. 先判断 result.status 是否等于0, 如果等于0 , 就成功了, 可以把 result.message,
                     // 赋值给 this.list;  如果不等于0,可以弹框提醒, 获取数据失败!
 
-                    axios.get('http://127.0.0.1:8000/axios-vue').then(result => {
+                    axios.get('axios-vue').then(result => {
                         // 注意: 通过$http 获取到的数据,都在 result.body 中放着
 
                         if (result.status === 200) {
@@ -138,6 +140,26 @@
                             // 失败了
                             console.log(result)
                             alert('获取数据失败!')
+                        }
+                    })
+                },
+                del(id) {
+                    console.log(id)
+                    let products = JSON.stringify(this.list);
+                    axios.get('axios-vue', {
+                        params: {
+                            id: id,
+                            list: products
+                        }
+                    }).then(result => {
+                        if (result.status === 200) {
+                            // 删除成功
+                            console.log('result=')
+                            console.log(result)
+                            this.list = result.data
+                        } else {
+                            // 删除失败
+                            alert('删除失败')
                         }
                     })
                 }
