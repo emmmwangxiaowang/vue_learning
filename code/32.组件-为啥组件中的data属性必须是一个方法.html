@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <count></count>
+        <count></count>
+        <count></count>
+    </div>
+
+    <template id="tmpl">
+        <div>
+            <input type="button" value="+1" @click="increment">
+            <h3>{{count}}</h3>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let dataObj = {
+                count: 0
+            }
+            // 这是一个计数器的组件, 身上有一个按钮, 每当点击按钮, 让 data 中的 count 值 +1
+        Vue.component('count', {
+            template: '#tmpl',
+            data() {
+                // 每个组件使用单独的对象,不然多个组件会使用同一个对象
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                increment() {
+                    this.count += 1
+                }
+            }
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
