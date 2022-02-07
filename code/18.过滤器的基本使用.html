@@ -16,7 +16,7 @@
     <script>
         // 定义一个Vue全局的过滤器,名字叫做 msgFormat
         Vue.filter('msgFormat', function(msg, arg, arg2) {
-            // 字符串的 replace 方法,第一个参数,除了可写一个子u穿之外,还可以定义一个正则
+            // 字符串的 replace 方法,第一个参数,除了可写一个字符串之外,还可以定义一个正则
             //  /word/ 匹配字符串   +g  全局匹配
             return msg.replace(/emmm/g, arg + ' ' + arg2)
         })

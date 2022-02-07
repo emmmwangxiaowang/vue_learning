@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 如果要使用组件, 直接把组件的名称, 以HTMl 标签的形式, 引入到页面中, 即可 -->
+        <my-com1></my-com1>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        // 定义组件
+        // 什么是组件: 组件的出现, 就是为了拆分 Vue 实例的代码,
+        //     能够让我们以不同的组件, 来划分不同的功能模块,
+        //     将来我们需要什么样的功能, 就可以去调用对应的组件即可
+
+        // 组件化和模块化的不同:
+        //     模块化: 是从代码逻辑的角度进行划分的;
+        // 方便代码分层开发, 保证每个模块的功能单一
+        // 组件化: 是从UI界面的角度进行划分的;
+        // 前端的组件化, 方便 UI 的复用
+
+
+        // 1.1 使用 Vue.extend 来创建全局的Vue组件
+        // let com1 = Vue.extend({
+        //     template: '<h3>这是使用Vue.extend 创建的组件</h3>' // 通过 template 属性 ,指定了组件要展示是的html结构
+
+        // })
+
+        // 1.2 使用 VUe.component('组件的名称,创建出来的组件模板对象')
+        // 如果使用 Vue.component 定义全局组件的时候 , 组件名称使用了 驼峰命名, 则在引用组件的时候,需要把 大写的驼峰改为小写的字母 , 同时, 两个单词之间,使用 - 链接
+        // 如果不适用驼峰, 则直接拿名称来使用即可
+        // Vue.component('myCom1', com1)
+
+        // Vue.component 第一个参数: 组件的名称, 将来在引用组件的时候, 就是一个 标签形式 来引用 
+        // 它的第二个参数: Vue.extend 创建的组件, 其中 template 就是组件将来要展示的Html内容
+        Vue.component('myCom1', Vue.extend({
+            template: '<h3>这是使用Vue.extend 创建的组件</h3>' // 通过 template 属性 ,指定了组件要展示是的html结构
+
+        }))
+
+        var app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
