@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 如果在路由中, 使用 查询字符串, 给路由传递参数, 则 不需要修改路由规则的 path 属性 -->
+        <router-link to="/login/12/ls">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <router-view></router-view>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.0/dist/vue-router.js"></script>
+
+    <script>
+        let login = {
+            template: '<h1>登录----{{this.$route.params.id}}-----{{this.$route.params.name}}</h1>',
+            data() {
+                return {
+                    msg: 123
+                }
+            },
+            created() {
+                // 组件的生命周期 钩子函数
+                console.log(this.$route.params.id)
+
+            }
+        }
+        let register = {
+            template: '<h1>注册</h1>'
+        }
+
+        let router = new VueRouter({
+            routes: [{
+                path: '/login/:id/:name',
+                component: login
+            }, {
+                path: '/register',
+                component: register
+            }]
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            },
+            // 属性名和属性值一样 简化为属性名
+            // router: router
+            router
+        });
+    </script>
+</body>
+
+</html>
