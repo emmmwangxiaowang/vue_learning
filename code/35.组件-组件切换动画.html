@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+    <style>
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0;
+            transform: translateX(150px);
+        }
+        
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: all 0.5S ease
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <a href="" @click.prevent="comName='login'">登录</a>
+        <a href="" @click.prevent="comName='register'">注册</a>
+
+        <!-- 通过 mode 属性, 设置组件切换是的方式 -->
+        <transition name="fade" mode="out-in">
+            <component :is="comName"></component>
+        </transition>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('login', {
+            template: '<h3>登录组件</h3>'
+        })
+
+        Vue.component('register', {
+            template: '<h3>注册组件</h3>'
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                comName: 'login'
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
