@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to='/account'>Account</router-link>
+        <router-view></router-view>
+    </div>
+    <template id="tmpl">
+        <div>
+            <h1>这是 Account 组件</h1>
+            <router-link to='/login'>登录</router-link>
+            <router-link to='/account/register'>注册</router-link>
+            <!-- 给子路由加一个视图 -->
+            <router-view></router-view>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.0/dist/vue-router.js"></script>
+
+    <script>
+        // 组件的模板对象
+        let account = {
+            template: '#tmpl'
+        }
+        let login = {
+            template: '<h3>登录</h3>'
+        }
+        let register = {
+            template: '<h3>注册</h3>'
+        }
+
+        let router = new VueRouter({
+            routes: [{
+                path: '/account',
+                component: account,
+                // 使用 children 属性, 实现子路由, 同时, 子路由的path 前面 , 不要带 /
+                // 否则永远以根路径开始请求,这样不方便我们用户去理解URL 地址
+                children: [{
+                    path: '/login',
+                    component: login
+                }, {
+                    path: 'register',
+                    component: register
+                }]
+            }]
+
+
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            },
+            router,
+            watch: {
+                '$route.path': function(newVal, oldVal) {
+                    // console.log(newVal + '-----' + oldVal)
+                    if (newVal === '/login') {
+                        console.log("欢迎进入登录页面")
+                    } else if (newVal === '/account/register')
+                        console.log('请注册')
+
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
