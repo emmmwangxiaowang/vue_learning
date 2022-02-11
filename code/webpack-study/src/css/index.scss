@@ -5,5 +5,13 @@ body {
     li {
         font-size: 12px;
         line-height: 30px;
+        list-style: none;
+    }
+    .box {
+        width: 600px;
+        height: 800px;
+        background-size: cover;
+        // 默认情况下 webpack 无法处理 css 文件中的地址, 不管是 图片 音频还是字体库
+        background-image: url('../asssets/images/2022.2.10.jpg');
     }
 }

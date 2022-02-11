@@ -8,5 +8,12 @@ body {
   html li,
   body li {
     font-size: 12px;
-    line-height: 30px; }
+    line-height: 30px;
+    list-style: none; }
+  html .box,
+  body .box {
+    width: 600px;
+    height: 800px;
+    background-size: cover;
+    background-image: url(8841a1cd-2022.2.10.jpg); }
 

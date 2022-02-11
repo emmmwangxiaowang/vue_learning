@@ -58,12 +58,14 @@ module.exports = {
                 // 指定属性
                 id: 'target'
             },
-            linkType: 'text/css',
+            // linkType: 'text/css',
             // 开启禁用生成css 仍将被提取, 并可用自定义加载方法
             runtime: false
         })
     ],
     module: {
+        // css sass less 文件改变了不光需要重新打包, 在这之前还要重新'挂载'到内存
+        // webpack ./src/css/* -o ./dist
         rules: [{
             test: /\.css$/i,
             // webpack 处理第三方文件类型的过程:
@@ -80,6 +82,16 @@ module.exports = {
             // 配置sass 除了安装 sass-loader 之外还要安装 node-sass
             test: /\.scss$/,
             use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        }, {
+            // 处理图片路径的 loader
+            test: /\.jgp|png|gif|jpeg|bmp$/,
+            // use: 'url-loader?limit=90000$name=[hash:8]-[name].[ext]',
+            // limit 给定的值, 是图片的大小, 大卫是byte, 如果我们引用的图片 ,大于或等于给定的 limit值, 则 不会被转为base64 格式的字符串,
+            // 如果 图片小于给定的limit 值, 则 会被转为 base64 的字符串
+
+            type: 'asset//resource'
+
+
         }],
     },
 
@@ -92,7 +104,16 @@ module.exports = {
         // 指定打包好的文件, 输出到哪个目录中去
         path: path.resolve(__dirname, './dist'),
         //  这是指定输出的文件的名称
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+
+        // webpack5 使用资源模块来代替 原来的 file-loader url-loader 等loader
+        // 资源模块”类型有四种。
+        // asset/resource： 发送一个单独的文件并导出 URL。之前通过使用 file-loader 实现。
+        // asset / inline： 导出一个资源的 data URI。 之前通过使用 url - loader 实现。
+        // asset / source： 导出资源的源代码。 之前通过使用 raw - loader 实现。
+        // asset： 在导出一个 data URI 和发送一个单独的文件之间自动选择。 之前通过使用 url - loader， 并且配置资源体积限制实现。
+
+        assetModuleFilename: '[hash:8]-[name][ext][query]'
     }
 
 }
