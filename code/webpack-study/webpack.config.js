@@ -66,9 +66,20 @@ module.exports = {
     module: {
         rules: [{
             test: /\.css$/i,
-            use: [
-                MiniCssExtractPlugin.loader, 'css-loader'
-            ]
+            // webpack 处理第三方文件类型的过程:
+            // 1. 发现这个要处理的文件是不是JS文件, 然后就去配置文件中, 查找有没有对应的第三方 loader 规则
+            // 2. 如果能找到对应的规则 , 就会调用对应的 loader 处理, 这种文件类型;
+            // 3. 在调用loader 的时候 是从右往左调用的,
+            // 4. 当最后的一个loader 调用完毕后, 会把 处理的结果直接交给 webpack 进行打包合并
+            use: [MiniCssExtractPlugin.loader, 'css-loader']
+        }, {
+            // 配置处理 .less 文件的第三方 loader 规则
+            test: /\.less$/,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader']
+        }, {
+            // 配置sass 除了安装 sass-loader 之外还要安装 node-sass
+            test: /\.scss$/,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
         }],
     },
 
