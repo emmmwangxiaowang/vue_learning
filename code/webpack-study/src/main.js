@@ -4,6 +4,7 @@
 
 // import *** from *** 是 ES6 中导入模块的方式
 // 由于是 ES6 的语法, 太高级了, 浏览器解析不了
+import "./css/index.css"
 import $ from 'jquery'
 // const $ = require('jquery')
 $(function() {

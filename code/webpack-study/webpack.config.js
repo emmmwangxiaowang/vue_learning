@@ -3,6 +3,10 @@ const { webpack, HotModuleReplacementPlugin } = require('webpack');
 // 启用热更新的第二部
 const webpaack = require('webpack')
 
+// 独立加载css文件插件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+// 将html页面加载到内存中
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 // 这个配置文件, 其实就是一个 JS 文件, 通过 Node 中的模块操作, 向外暴露了一个配置对象
@@ -48,8 +52,27 @@ module.exports = {
             removeEmptyElemetns: true,
             // 以区分大小写的方式处理自定义标签内的属性
             caseSensitive: true
+        }),
+        new MiniCssExtractPlugin({
+            attributes: {
+                // 指定属性
+                id: 'target'
+            },
+            linkType: 'text/css',
+            // 开启禁用生成css 仍将被提取, 并可用自定义加载方法
+            runtime: false
         })
     ],
+    module: {
+        rules: [{
+            test: /\.css$/i,
+            use: [
+                MiniCssExtractPlugin.loader, 'css-loader'
+            ]
+        }],
+    },
+
+
     // 在配置文件中需要手动指定入口和出口
     entry: './src/main.js',
     output: {
