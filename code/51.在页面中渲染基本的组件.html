@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vueApp</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>333333</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let login = {
+            template: '<h1>登录组件</h1>'
+        }
+        var app = new Vue({
+            el: "#app",
+            data: {
+
+            },
+            methods: {
+
+            },
+            // render 创建的模板 会把其它的标签覆盖掉,只显示这里面定义的模板
+            render: function(createElements) {
+                // createElements 是一个方法,调用它, 能够把指定的组件
+                let html = createElements(login)
+                    // 注意: 这里 return 的结果, 会替换页面的  el 指定的那个 容器
+                return html
+                    // return createElements(login)
+            }
+        });
+    </script>
+</body>
+
+</html>

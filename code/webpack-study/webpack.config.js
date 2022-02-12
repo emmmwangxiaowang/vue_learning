@@ -116,4 +116,9 @@ module.exports = {
         assetModuleFilename: '[hash:8]-[name][ext][query]'
     }
 
+    // {
+    //     "presets": ["env", "stage-o"]
+    //      "plugins": ["transform-runtime"]
+    // }
+
 }

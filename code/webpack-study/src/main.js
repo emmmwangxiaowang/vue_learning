@@ -1,12 +1,9 @@
 // 这是 main.js  是项目js入口文件
 
 // 1.导入Jquery
+import $ from 'jquery';
 
-// import *** from *** 是 ES6 中导入模块的方式
-// 由于是 ES6 的语法, 太高级s了, 浏览器解析不了
-import $ from 'jquery'
-
-
+// import $ from 'element-ui';
 // webpack 默认只能打包处理 JS 类型的文件, 无法处理其它的非 jS 类型的文件
 // 如果要处理非 JS 类型的文件, 需要安装合适的第三方 loader 加载器
 // const $ = require('jquery')
@@ -16,6 +13,15 @@ $(function() {
         return '#' + 'D97634'
     })
 })
+
+// class 关键字,是ES6 中提供的信誉发, 用来实现ES6 面向对象编程的方式
+class Person {
+    static info = { name: '蒋莹莹', age: 20 }
+}
+
+console.log(Person.info)
+
+
 
 
 
