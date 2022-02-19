@@ -89,7 +89,7 @@ module.exports = {
             // limit 给定的值, 是图片的大小, 大卫是byte, 如果我们引用的图片 ,大于或等于给定的 limit值, 则 不会被转为base64 格式的字符串,
             // 如果 图片小于给定的limit 值, 则 会被转为 base64 的字符串
 
-            type: 'asset//resource'
+            type: 'asset/resource'
 
 
         }],
